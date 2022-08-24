@@ -465,8 +465,8 @@ def create_plot(plot_list, metric):
     if df.empty:
         if VERBOSE:
             print(f'\nThe metric labelled "{metric}" was requested and listed '
-                   'in the VCF header, but could not be found in any records. '
-                   'Therefore no plots can be generated for this metric.\n')
+                  'in the VCF header, but could not be found in any records. '
+                  'Therefore no plots can be generated for this metric.\n')
         return None
     # make figure (facet_col tiles the datasets based on filter subset)
     fig = px.histogram(
