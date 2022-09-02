@@ -1,0 +1,81 @@
+{
+  "name": "eggd_confirmation_thresholds",
+  "title": "eggd_confirmation_thresholds",
+  "summary": "Takes a pair of VCFs, one from hap.py and the other from Sentieon (the former must be generated from the latter) and a list of QC metrics. Produces an HTML report showing the distributions of all the requested metrics, split by True/False Positive status. Use to determine QC thresholds at which Sanger confirmation of variants may be skipped. ",
+  "dxapi": "1.0.0",
+  "version": "1.0.0",
+  "authorizedUsers": [
+    "org-emee_1"
+  ],
+  "developers":[
+    "org-emee_1"
+  ],
+  "properties": {
+    "githubRelease": "1.0.0"
+    },
+  "inputSpec": [
+    {
+      "name": "happy_vcf",
+      "class": "file",
+      "optional": false,
+      "patterns": [
+        "*.vcf",
+        "*.vcf.gz"
+      ],
+      "help": "The VCF produced by hap.py containing SNP/INDEL, HET/HOM info for TRUTH and QUERY samples."
+    },
+    {
+      "name": "sentieon_vcf",
+      "class": "file",
+      "optional": false,
+      "patterns": [
+        "*.vcf",
+        "*.vcf.gz"
+      ],
+      "help": "The VCF produced by Sentieon (variant calling). Must be the VCF used to generate the hap.py VCF."
+    },
+    {
+      "name": "metric_list",
+      "class": "string",
+      "optional": true,
+      "default": "all",
+      "help": "A comma separated list (no spaces) of VCF QC metrics to be included in the report."
+    }
+  ],
+  "outputSpec": [
+    {
+      "name": "html_report",
+      "class": "file",
+      "patterns": [
+        "*.html"
+      ],
+      "help": "An HTML report with distribution plots for all requested metrics (if available in input VCF)."
+    }
+  ],
+  "runSpec": {
+    "timeoutPolicy": {
+      "*": {
+        "hours": 1
+      }
+    },
+    "interpreter": "bash",
+    "file": "src/eggd_confirmation_thresholds.sh",
+    "distribution": "Ubuntu",
+    "release": "20.04",
+    "version": "0"
+  },
+  "access": {
+    "network": [
+      "*"
+    ]
+  },
+  "regionalOptions": {
+    "aws:eu-central-1": {
+      "systemRequirements": {
+        "*": {
+          "instanceType": "mem1_ssd1_v2_x4"
+        }
+      }
+    }
+  }
+}
